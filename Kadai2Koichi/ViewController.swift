@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     
     @IBAction func showResultButton(_ sender: Any) {
         caluculateNumber()
+        view.endEditing(true)
     }
     
     
