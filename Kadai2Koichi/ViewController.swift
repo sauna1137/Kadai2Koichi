@@ -30,33 +30,35 @@ class ViewController: UIViewController {
 
     private func caluculateNumber() {
 
-        if textFields[0].text?.isEmpty == true || textFields[1].text?.isEmpty == true {
-            return
-        }
+        if let num1 = Double(textFields[0].text!),
+           let num2 = Double(textFields[1].text!) {
 
-        if selectCalcSegment.selectedSegmentIndex == 0 {
+            if selectCalcSegment.selectedSegmentIndex == 0 {
 
-            let plusResult = Double(textFields[0].text!)! + Double(textFields[1].text!)!
-            resultLabel.text = String(plusResult)
+                let plusResult = num1 + num2
+                resultLabel.text = String(plusResult)
 
-        } else if selectCalcSegment.selectedSegmentIndex == 1 {
-            let minusResult = Double(textFields[0].text!)! - Double(textFields[1].text!)!
-            resultLabel.text = String(minusResult)
+            } else if selectCalcSegment.selectedSegmentIndex == 1 {
+                let minusResult = num1 - num2
+                resultLabel.text = String(minusResult)
 
-        } else if selectCalcSegment.selectedSegmentIndex == 2 {
+            } else if selectCalcSegment.selectedSegmentIndex == 2 {
 
-            let multipleResult = Double(textFields[0].text!)! * Double(textFields[1].text!)!
-            resultLabel.text = String(multipleResult)
+                let multipleResult = num1 * num2
+                resultLabel.text = String(multipleResult)
 
-        } else if selectCalcSegment.selectedSegmentIndex == 3 {
+            } else if selectCalcSegment.selectedSegmentIndex == 3 {
 
-            if textFields[1].text == "0"{
-                resultLabel.text = "割る数には0以外を入力してください"
-                return
+                if textFields[1].text == "0"{
+                    resultLabel.text = "割る数には0以外を入力してください"
+                    return
+
+                } else {
+                    let dividResult = num1 / num2
+                    resultLabel.text = String(dividResult)
+                }
+            } else {
             }
-
-            let dividResult = Double(textFields[0].text!)! / Double(textFields[1].text!)!
-            resultLabel.text = String(dividResult)
         }
     }
 }
