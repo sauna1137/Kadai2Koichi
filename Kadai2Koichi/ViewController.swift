@@ -9,9 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var textFields: [UITextField]!
-    @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var selectCalcSegment: UISegmentedControl!
+    @IBOutlet private var textFields: [UITextField]!
+    @IBOutlet private weak var resultLabel: UILabel!
+    @IBOutlet private weak var selectCalcSegment: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,35 +30,31 @@ class ViewController: UIViewController {
 
     private func caluculateNumber() {
 
-        if let num1 = Double(textFields[0].text!),
-           let num2 = Double(textFields[1].text!) {
+        guard let num1 = Double(textFields[0].text!),
+              let num2 = Double(textFields[1].text!) else {
+            return
+        }
 
-            if selectCalcSegment.selectedSegmentIndex == 0 {
-
-                let plusResult = num1 + num2
-                resultLabel.text = String(plusResult)
-
-            } else if selectCalcSegment.selectedSegmentIndex == 1 {
-                let minusResult = num1 - num2
-                resultLabel.text = String(minusResult)
-
-            } else if selectCalcSegment.selectedSegmentIndex == 2 {
-
-                let multipleResult = num1 * num2
-                resultLabel.text = String(multipleResult)
-
-            } else if selectCalcSegment.selectedSegmentIndex == 3 {
-
-                if textFields[1].text == "0"{
-                    resultLabel.text = "割る数には0以外を入力してください"
-                    return
-
-                } else {
-                    let dividResult = num1 / num2
-                    resultLabel.text = String(dividResult)
-                }
+        switch selectCalcSegment.selectedSegmentIndex {
+        case 0:
+            let plusResult = num1 + num2
+            resultLabel.text = "\(plusResult)"
+        case 1:
+            let minusResult = num1 - num2
+            resultLabel.text = String(minusResult)
+        case 2:
+            let multipleResult = num1 * num2
+            resultLabel.text = "\(multipleResult)"
+        case 3:
+            if num2 == 0 {
+                resultLabel.text = "割る数には0以外を入力してください"
+                return
             } else {
+                let dividResult = num1 / num2
+                resultLabel.text = String(dividResult)
             }
+        default:break
         }
     }
+
 }
